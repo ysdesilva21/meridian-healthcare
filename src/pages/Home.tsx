@@ -1,0 +1,14 @@
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import TrustStrip from '../components/TrustStrip';
+
+export default function Home() {
+  return (
+    <>
+      <main>
+        <Hero />
+        <TrustStrip />
+      </main>
+    </>
+  );
+}
