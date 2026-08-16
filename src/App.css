@@ -2,3 +2,9 @@
 .button{
   @apply bg-primary-800 text-inverse px-5 py-2.5 rounded-[15px] font-semibold
 }
+.heading{
+  @apply text-3xl md:text-4xl lg:text-5xl text-primary font-bold pl-4
+}
+.sub-heading{
+  @apply text-[16px] lg:text-[24px] z-50 text-primary
+}

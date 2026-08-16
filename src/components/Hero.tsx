@@ -96,10 +96,11 @@ export default function Hero() {
                 <p>Verified providers</p>
                 <p>Isurance supported</p>
             </div>
-         </div>
+        </div>
 
-         <div className='md:hidden bg-neutral-100'>
-          <div className='flex items-center justify-center gap-5 bg-neutral-100 px-2 py-2 xl:px-3'>
+    </section>
+     <div className='md:hidden bg-neutral-100'>
+          <div className='flex items-center justify-center gap-5 bg-neutral-100 px-2 py-3 xl:px-3'>
             <div className='h-10'>
                 <img src={trustMImgs} alt="" />
             </div>
@@ -115,8 +116,6 @@ export default function Hero() {
             </div>
           </div>
         </div>
-
-    </section>
     </>
     
   )
