@@ -48,7 +48,7 @@ export default function Steps(){
                 
             </div>
 
-            <div className="flex justify-start pl-4 md:pl-15 lg:pl-40 lg:mt-16">
+            <div className="flex justify-start pl-4 md:pl-15 lg:pl-40 lg:mt-16 mt-16">
                 <p className="sub-heading text-left md:text-left">From finding the right provider to booking your Visit, <br/>without the necessary steps.</p>
             </div>
         </section>

@@ -2,6 +2,9 @@
 .button{
   @apply bg-primary-800 text-inverse px-5 py-2.5 rounded-[15px] font-semibold
 }
+.sec-button{
+  @apply text-primary border-2 border-primary-800 px-5 py-2.5 rounded-[15px] font-semibold
+}
 .heading{
   @apply text-3xl md:text-4xl lg:text-5xl text-primary font-bold pl-4
 }

@@ -13,7 +13,7 @@ const features = [
     {
         img:F02,
         head:"Verified Healthcare\nProfessionals",
-        tagline:"You can book with confidence\nknowing you're inn trusted hnads."
+        tagline:"You can book with confidence\nknowing you're inn trusted hands."
     },
     {
         img:F03,
