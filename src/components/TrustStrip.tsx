@@ -34,44 +34,90 @@ export default function Trust() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    if (prefersReducedMotion) {
-      return;
-    }
-
     const ctx = gsap.context(() => {
-      const animateItems = (
-        section: string,
-        items: string,
-      ) => {
-        gsap.from(items, {
-          y: 30,
+      /*
+       * Reduced motion:
+       * Show everything immediately.
+       */
+      if (prefersReducedMotion) {
+        gsap.set(
+          ".trust-desktop-bg, .trust-mobile-bg",
+          { opacity: 1, y: 0 },
+        );
+
+        gsap.set(
+          ".trust-desktop-item, .trust-mobile-item",
+          { opacity: 1, y: 0 },
+        );
+
+        return;
+      }
+
+      /*
+       * Desktop / Tablet
+       * ----------------
+       * Background appears only when the section
+       * enters the viewport.
+       */
+      const desktopTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".trust-desktop",
+          start: "top 80%",
+          once: true,
+        },
+      });
+
+      desktopTimeline
+        .from(".trust-desktop-bg", {
           opacity: 0,
+          y: 25,
           duration: 0.7,
           ease: "power3.out",
-          stagger: 0.12,
-
-          scrollTrigger: {
-            trigger: section,
-
-            // Animation starts when the section enters
-            // the lower part of the viewport.
-            start: "top 75%",
-
-            // Only play once.
-            once: true,
+        })
+        .from(
+          ".trust-desktop-item",
+          {
+            y: 25,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.12,
+            ease: "power3.out",
           },
-        });
-      };
+          "-=0.35",
+        );
 
-      animateItems(
-        ".trust-desktop",
-        ".trust-desktop-item",
-      );
+      /*
+       * Mobile
+       * ------
+       * Background/content appears only when the
+       * mobile trust section enters the viewport.
+       */
+      const mobileTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".trust-mobile",
+          start: "top 80%",
+          once: true,
+        },
+      });
 
-      animateItems(
-        ".trust-mobile",
-        ".trust-mobile-item",
-      );
+      mobileTimeline
+        .from(".trust-mobile-bg", {
+          opacity: 0,
+          y: 25,
+          duration: 0.7,
+          ease: "power3.out",
+        })
+        .from(
+          ".trust-mobile-item",
+          {
+            y: 25,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.12,
+            ease: "power3.out",
+          },
+          "-=0.35",
+        );
     });
 
     return () => ctx.revert();
@@ -81,7 +127,14 @@ export default function Trust() {
     <>
       {/* Desktop & Tablet Trust Strip */}
       <section className="trust-desktop hidden w-full md:block">
-        <div className="my-32 min-h-[128px] bg-neutral-300">
+        <div
+          className="
+            trust-desktop-bg
+            my-32
+            min-h-[128px]
+            bg-neutral-300
+          "
+        >
           <div className="mx-auto flex max-w-7xl items-center justify-center">
             {TRUST_ITEMS.map((item) => (
               <div
@@ -125,7 +178,13 @@ export default function Trust() {
 
       {/* Mobile Trust Strip */}
       <section className="trust-mobile md:hidden">
-        <div className="flex flex-col py-16">
+        <div
+          className="
+            trust-mobile-bg
+            flex flex-col
+            py-16
+          "
+        >
           {TRUST_ITEMS.map((item, index) => {
             const isLeft = index % 2 === 0;
 
@@ -136,7 +195,9 @@ export default function Trust() {
                   trust-mobile-item
                   flex flex-col gap-1
                   py-4
-                  ${isLeft ? "self-start pl-12" : "self-end pr-12"}
+                  ${isLeft
+                    ? "self-start pl-12"
+                    : "self-end pr-12"}
                 `}
               >
                 <p
@@ -144,7 +205,9 @@ export default function Trust() {
                     text-[24px]
                     leading-tight
                     text-primary
-                    ${isLeft ? "self-start" : "self-end"}
+                    ${isLeft
+                      ? "self-start"
+                      : "self-end"}
                   `}
                 >
                   {item.head}
@@ -156,7 +219,9 @@ export default function Trust() {
                     text-[12px]
                     leading-5
                     text-primary
-                    ${isLeft ? "text-left" : "text-right"}
+                    ${isLeft
+                      ? "text-left"
+                      : "text-right"}
                   `}
                 >
                   {item.tagline}
