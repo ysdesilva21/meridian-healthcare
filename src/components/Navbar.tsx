@@ -352,7 +352,7 @@ export default function Navbar() {
           Mobile Navigation
       --------------------------------- */}
 
-      <div className="absolute left-0 top-0 z-[1000] w-full md:hidden">
+      <div className="absolute left-0 top-0 z-1000 w-full md:hidden">
         {/* Menu Button */}
         <button
           type="button"
@@ -379,7 +379,7 @@ export default function Navbar() {
         <div
           ref={mobileMenuRef}
           className="
-            fixed inset-0 z-[1000]
+            fixed inset-0 z-1000
             min-h-screen
             bg-surface
             opacity-0

@@ -4,17 +4,17 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import chen from "../assets/None2.png";
-import mike from "../assets/None1.png";
-import james from "../assets/James.png";
-import park from "../assets/Park.png";
-import emma from "../assets/Emma.png";
-import david from "../assets/David.png";
-import morgan from "../assets/Morgan.png";
-import smith from "../assets/Smith.png";
-import sophie from "../assets/Sphie.png";
-import jennifer from "../assets/Jennifer.png";
-import robert from "../assets/Robert.png";
+import chen from "../assets/None2.webp";
+import mike from "../assets/None1.webp";
+import james from "../assets/James.webp";
+import park from "../assets/Park.webp";
+import emma from "../assets/Emma.webp";
+import david from "../assets/David.webp";
+import morgan from "../assets/Morgan.webp";
+import smith from "../assets/Smith.webp";
+import sophie from "../assets/Sphie.webp";
+import jennifer from "../assets/Jennifer.webp";
+import robert from "../assets/Robert.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -184,7 +184,7 @@ function ProviderCard({
         ${className}
       `}
     >
-      <div className="aspect-[4/5] w-full overflow-hidden rounded-xl">
+      <div className="aspect-4/5 w-full overflow-hidden rounded-xl">
         <img
           src={provider.image}
           alt={`${provider.name}, ${provider.specialty}`}

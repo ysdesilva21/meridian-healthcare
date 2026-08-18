@@ -1,7 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-import heroBG from "../assets/HeroBG.png";
+import heroBG from "../assets/HeroBG.webp";
 import heroMBG from "../assets/HeroMBG.svg";
 import calendar from "../assets/icon/calendar.svg";
 import star from "../assets/icon/star.svg";
@@ -174,6 +174,7 @@ export default function Hero() {
             src={heroBG}
             alt=""
             aria-hidden="true"
+            fetchPriority="high"
             className="hero-desktop-bg h-full w-full object-cover"
           />
         </div>

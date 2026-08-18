@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import mockup from "../assets/mockups/Feature Mockup Mobile.png";
+import mockup from "../assets/mockups/Feature Mockup Mobile.webp";
 import F01 from "../assets/F01.webp";
 import F02 from "../assets/F02.webp";
 import F03 from "../assets/F03.webp";
