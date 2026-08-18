@@ -80,8 +80,8 @@ export default function Trust() {
   return (
     <>
       {/* Desktop & Tablet Trust Strip */}
-      <section className="trust-desktop my-32 hidden w-full md:block">
-        <div className="bg-neutral-300">
+      <section className="trust-desktop hidden w-full md:block">
+        <div className="my-32 min-h-[128px] bg-neutral-300">
           <div className="mx-auto flex max-w-7xl items-center justify-center">
             {TRUST_ITEMS.map((item) => (
               <div
