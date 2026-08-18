@@ -1,6 +1,18 @@
 @reference "./index.css";
 .button{
-  @apply bg-primary-800 text-inverse px-5 py-2.5 rounded-[15px] font-semibold
+  @apply bg-primary-800 
+              text-inverse 
+              px-5 py-2.5 
+              rounded-[15px] 
+              font-semibold 
+              transition-all duration-200 ease-out
+              hover:-translate-y-0.5
+              hover:shadow-md
+              active:translate-y-0
+              focus-visible:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-primary
+              focus-visible:ring-offset-2
 }
 .sec-button{
   @apply text-primary border-2 border-primary-800 px-5 py-2.5 rounded-[15px] font-semibold

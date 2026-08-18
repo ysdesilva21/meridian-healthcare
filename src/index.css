@@ -40,3 +40,10 @@
   --color-surface:#ffffff;
   --color-border:#D7EDE1;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+}
