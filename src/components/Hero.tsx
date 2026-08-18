@@ -2,12 +2,12 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 import heroBG from "../assets/HeroBG.webp";
-import heroMBG from "../assets/HeroMBG.svg";
+import heroMBG from "../assets/HeroMBG.webp";
 import calendar from "../assets/icon/calendar.svg";
 import star from "../assets/icon/star.svg";
 import star2 from "../assets/icon/star2.svg";
-import trustImgs from "../assets/trustImgs.svg";
-import trustMImgs from "../assets/trustMImgs.svg";
+import trustImgs from "../assets/trustImgs.webp";
+import trustMImgs from "../assets/trustMImgs.webp";
 
 import Navbar from "./Navbar";
 
