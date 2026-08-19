@@ -212,8 +212,8 @@ export default function Hero() {
                     xl:block
                   "
                 >
-                  Compare verified specialists, check insurance <br className="hidden md:block"/>
-                  compatibility, and book appointments online<br className="hidden md:block"/>
+                  Compare verified specialists, check insurance 
+                  compatibility, and book appointments online
                   without phone calls.
                 </h2>
 
@@ -385,7 +385,7 @@ export default function Hero() {
               className="
                 mb-8
                 text-center
-                text-4xl font-bold
+                text-3xl font-bold
                 leading-14 text-inverse
               "
             >
@@ -397,14 +397,11 @@ export default function Hero() {
             <h2
               className="
                 text-center
-                text-[16px] font-medium
+                text-[14px] font-medium
                 leading-6 text-neutral-200
               "
             >
-              Compare verified specialists, check <br />
-              insurance compatibility, and book <br />
-              appointments online without phone <br />
-              calls.
+              Compare verified specialists, check insurance compatibility, and book appointments online without phone calls.
             </h2>
           </div>
 
