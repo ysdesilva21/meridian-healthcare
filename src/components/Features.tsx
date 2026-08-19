@@ -4,10 +4,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import mockup from "../assets/mockups/Feature Mockup Mobile.webp";
-import F01 from "../assets/F01.webp";
-import F02 from "../assets/F02.webp";
-import F03 from "../assets/F03.webp";
-import F04 from "../assets/F04.webp";
+import F01 from "../assets/features/F01.webp";
+import F02 from "../assets/features/F02.webp";
+import F03 from "../assets/features/F03.webp";
+import F04 from "../assets/features/F04.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -53,153 +53,150 @@ export default function Features() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
-  () => {
-    const section = sectionRef.current;
+    () => {
+      const section = sectionRef.current;
 
-    if (!section) return;
+      if (!section) return;
 
-    const heading = section.querySelector(
-      ".features-heading"
-    ) as HTMLElement | null;
+      const heading = section.querySelector(
+        ".features-heading"
+      ) as HTMLElement | null;
 
-    const mockupElement = section.querySelector(
-      ".features-mockup"
-    ) as HTMLElement | null;
+      const mockupElement = section.querySelector(
+        ".features-mockup"
+      ) as HTMLElement | null;
 
-    const cards = gsap.utils.toArray<HTMLElement>(
-      ".feature-card",
-      section
-    );
-
-    const supportingText = section.querySelector(
-      ".features-supporting"
-    ) as HTMLElement | null;
-
-    if (
-      !heading ||
-      !mockupElement ||
-      !supportingText ||
-      cards.length === 0
-    ) {
-      return;
-    }
-
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (reduceMotion) {
-      gsap.set(
-        [heading, mockupElement, ...cards, supportingText],
-        {
-          clearProps: "all",
-        }
+      const cards = gsap.utils.toArray<HTMLElement>(
+        ".feature-card",
+        section
       );
 
-      return;
-    }
+      const supportingText = section.querySelector(
+        ".features-supporting"
+      ) as HTMLElement | null;
 
-    /*
-     * --------------------------------
-     * MAIN FEATURES ANIMATION
-     * --------------------------------
-     */
+      if (
+        !heading ||
+        !mockupElement ||
+        !supportingText ||
+        cards.length === 0
+      ) {
+        return;
+      }
 
-    gsap.set(heading, {
-      y: 40,
-      opacity: 0,
-    });
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
 
-    gsap.set(mockupElement, {
-      y: 50,
-      scale: 0.94,
-      opacity: 0,
-    });
+      if (reduceMotion) {
+        gsap.set(
+          [heading, mockupElement, ...cards, supportingText],
+          {
+            clearProps: "all",
+          }
+        );
 
-    gsap.set(cards, {
-      y: 45,
-      opacity: 0,
-    });
+        return;
+      }
 
-    const timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top 75%",
-        once: true,
-      },
-    });
+      /*
+       * --------------------------------
+       * MAIN FEATURES ANIMATION
+       * --------------------------------
+       */
 
-    // 1. Heading
-    timeline.to(heading, {
-      y: 0,
-      opacity: 1,
-      duration: 0.8,
-      ease: "power3.out",
-    });
+      gsap.set(heading, {
+        y: 40,
+        opacity: 0,
+      });
 
-    // Small pause
-    timeline.to({}, {
-      duration: 0.15,
-    });
+      gsap.set(mockupElement, {
+        y: 50,
+        scale: 0.94,
+        opacity: 0,
+      });
 
-    // 2. Mockup
-    timeline.to(mockupElement, {
-      y: 0,
-      scale: 1,
-      opacity: 1,
-      duration: 1.1,
-      ease: "power3.out",
-    });
+      gsap.set(cards, {
+        y: 45,
+        opacity: 0,
+      });
 
-    // Let mockup settle
-    timeline.to({}, {
-      duration: 0.3,
-    });
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 75%",
+          once: true,
+        },
+      });
 
-    // 3. Cards
-    timeline.to(cards, {
-      y: 0,
-      opacity: 1,
-      duration: 0.65,
-      stagger: 0.2,
-      ease: "power3.out",
-    });
+      // 1. Heading
+      timeline.to(heading, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+      });
 
-    /*
-     * --------------------------------
-     * SUPPORTING TEXT ANIMATION
-     * --------------------------------
-     *
-     * This is intentionally NOT part
-     * of the main timeline.
-     */
+      // Small pause
+      timeline.to({}, {
+        duration: 0.15,
+      });
 
-    gsap.set(supportingText, {
-      y: 35,
-      opacity: 0,
-    });
+      // 2. Mockup
+      timeline.to(mockupElement, {
+        y: 0,
+        scale: 1,
+        opacity: 1,
+        duration: 1.1,
+        ease: "power3.out",
+      });
 
-    gsap.to(supportingText, {
-      y: 0,
-      opacity: 1,
-      duration: 0.8,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: supportingText,
-        start: "top 85%",
-        once: true,
-      },
-    });
-  },
-  {
-    scope: sectionRef,
-  }
-);
+      // Let mockup settle
+      timeline.to({}, {
+        duration: 0.3,
+      });
+
+      // 3. Cards
+      timeline.to(cards, {
+        y: 0,
+        opacity: 1,
+        duration: 0.65,
+        stagger: 0.2,
+        ease: "power3.out",
+      });
+
+      /*
+       * --------------------------------
+       * SUPPORTING TEXT ANIMATION
+       * --------------------------------
+       */
+
+      gsap.set(supportingText, {
+        y: 35,
+        opacity: 0,
+      });
+
+      gsap.to(supportingText, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: supportingText,
+          start: "top 85%",
+          once: true,
+        },
+      });
+    },
+    {
+      scope: sectionRef,
+  });
+
   return (
     <section
       ref={sectionRef}
       id="why-meridian"
-      className="mx-auto mb-32 max-w-[700px] overflow-hidden xl:max-w-[1200px]"
+      className="relative mx-auto mb-32 w-full max-w-[700px] overflow-hidden xl:max-w-[1200px]"
     >
       {/* Section Heading */}
       <div>
@@ -210,16 +207,46 @@ export default function Features() {
       </div>
 
       {/* Central Mockup */}
-      <div className="features-mockup absolute left-1/2 mt-16 -translate-x-1/2 md:mt-32">
+      <div
+        className="
+          features-mockup
+          absolute
+          inset-x-0
+          mt-16
+          flex
+          w-full
+          justify-center
+          md:mt-32
+        "
+      >
         <img
           src={mockup}
           alt="Meridian healthcare booking interface"
-          className="h-auto w-[260px] max-w-none md:w-[300px] lg:w-auto"
+          className="
+            h-auto
+            w-[260px]
+            max-w-none
+            md:w-[300px]
+            lg:w-auto
+          "
         />
       </div>
 
       {/* Feature Cards */}
-      <div className="relative z-50 mx-auto flex max-w-[1024px] flex-col items-center py-32 md:py-[184px] lg:py-64">
+      <div
+        className="
+          relative
+          z-50
+          mx-auto
+          flex
+          max-w-[1024px]
+          flex-col
+          items-center
+          py-32
+          md:py-[184px]
+          lg:py-64
+        "
+      >
         {FEATURES.map((item, index) => {
           const isRight = index % 2 === 0;
           const isFirstRow = index < 2;
@@ -229,12 +256,21 @@ export default function Features() {
               key={item.head}
               className={`
                 feature-card
-                flex h-[75px] w-full max-w-[225px]
-                items-center gap-3.5
-                rounded-[15px] bg-neutral-400
-                px-3 py-2 text-primary
+                flex
+                h-[75px]
+                w-full
+                max-w-[225px]
+                items-center
+                gap-3.5
+                rounded-[15px]
+                bg-neutral-400
+                px-3
+                py-2
+                text-primary
                 shadow-sm
-                transition-all duration-300 ease-out
+                transition-all
+                duration-300
+                ease-out
                 hover:-translate-y-1
                 hover:shadow-lg
 

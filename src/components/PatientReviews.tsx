@@ -4,7 +4,13 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import testimonialM from "../assets/Testimonial Main.webp";
+import testimonialM from "../assets/testimonials/Testimonial Main.webp";
+
+import olivia from "../assets/testimonials/Olivia.webp";
+import sam from "../assets/testimonials/Sam.webp";
+import james from "../assets/testimonials/James.webp";
+import emily from "../assets/testimonials/Emily.webp";
+import aryan from "../assets/testimonials/Aryan.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,7 +34,7 @@ const FEATURED: FeaturedTestimonial = {
     "Managing healthcare appointments usually feels overwhelming, but Meridian made it simple. I booked online, received instant confirmation, and the whole experience was seamless.",
   name: "Olivia P.",
   role: "Marketing Manager",
-  avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+  avatar: olivia,
   image: testimonialM,
 };
 
@@ -40,7 +46,7 @@ const TESTIMONIALS: Testimonial[] = [
       "Meridian helped me find a dermatologist that matched my needs and schedule. The booking process was fast, simple, and completely online.",
     name: "Sam M.",
     role: "Remote Software Engineer",
-    avatar: "https://randomuser.me/api/portraits/men/54.jpg",
+    avatar: sam,
   },
   {
     id: "james",
@@ -49,7 +55,7 @@ const TESTIMONIALS: Testimonial[] = [
       "The insurance filter made it easy to find doctors covered by my plan. I saved time by avoiding multiple calls and knowing my options before booking.",
     name: "James R.",
     role: "College Student",
-    avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+    avatar: james,
   },
   {
     id: "emily",
@@ -58,16 +64,16 @@ const TESTIMONIALS: Testimonial[] = [
       "Managing healthcare for my family is easier with Meridian. I can quickly find trusted providers and schedule appointments that fit our needs.",
     name: "Emily K.",
     role: "Parent of Two",
-    avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+    avatar: emily,
   },
   {
-    id: "daniel",
+    id: "aryan",
     rating: 4.8,
     quote:
       "With Meridian, I could quickly find available appointments and book care around my schedule. It saved me time and made the process effortless.",
-    name: "Daniel T.",
+    name: "Aryan T.",
     role: "Small Business Owner",
-    avatar: "https://randomuser.me/api/portraits/men/76.jpg",
+    avatar: aryan,
   },
 ];
 
@@ -84,11 +90,16 @@ function RatingBadge({ rating }: { rating: number }) {
         rounded-full border border-neutral-500
         bg-white px-2.5 py-1
         text-xs font-semibold
+        text-slate-900
       "
     >
       <Star
         aria-hidden="true"
-        className="h-3.5 w-3.5 fill-neutral-500 text-neutral-500"
+        className="
+          h-3.5 w-3.5
+          fill-neutral-500
+          text-neutral-500
+        "
       />
 
       {rating.toFixed(1)}
@@ -106,10 +117,14 @@ function FeaturedCard() {
       className="
         testimonial-featured
         relative mx-auto
-        h-[200px] w-[300px]
-        overflow-hidden rounded-[15px]
+
+        h-[320px] w-[300px]
+
+        overflow-hidden
+        rounded-[15px]
         bg-neutral-400
         shadow-sm
+
         transition-all duration-300 ease-out
         hover:-translate-y-1
         hover:shadow-md
@@ -123,16 +138,40 @@ function FeaturedCard() {
       <img
         src={FEATURED.image}
         alt=""
+        width={1200}
+        height={1600}
         className="
           absolute inset-0
-          hidden h-full w-full
+          h-full w-full
           object-cover
-          sm:block
+        "
+      />
+
+      {/* Mobile Overlay */}
+      <div
+        aria-hidden="true"
+        className="
+          absolute inset-0
+          bg-linear-to-b
+          from-black/10
+          via-transparent
+          to-black/20
+          sm:hidden
         "
       />
 
       {/* Rating */}
-      <div className="absolute left-3 top-3 sm:left-4 sm:top-4">
+      <div
+        className="
+          absolute
+          left-3 top-3
+          z-20
+
+          sm:left-4 sm:top-4
+
+          lg:left-6 lg:top-6
+        "
+      >
         <RatingBadge rating={FEATURED.rating} />
       </div>
 
@@ -140,6 +179,7 @@ function FeaturedCard() {
       <div
         className="
           absolute inset-x-3 bottom-3
+          z-10
           rounded-[15px]
           bg-neutral-400 p-4
 
@@ -151,7 +191,9 @@ function FeaturedCard() {
         <p
           className="
             text-[13px] leading-relaxed text-primary
+
             sm:text-[15px]
+
             lg:text-[24px]
           "
         >
@@ -163,8 +205,13 @@ function FeaturedCard() {
           <img
             src={FEATURED.avatar}
             alt=""
+            width={40}
+            height={40}
             className="
-              h-9 w-9 rounded-full object-cover
+              h-9 w-9
+              rounded-full
+              object-cover
+
               sm:h-10 sm:w-10
             "
           />
@@ -203,6 +250,7 @@ function TestimonialCard({
         rounded-[15px]
         bg-neutral-400 p-4
         shadow-sm
+
         transition-all duration-300 ease-out
         hover:-translate-y-0.5
         hover:shadow-md
@@ -239,8 +287,15 @@ function TestimonialCard({
         <img
           src={testimonial.avatar}
           alt=""
+          width={40}
+          height={40}
+          loading="lazy"
+          decoding="async"
           className="
-            h-8 w-8 rounded-full object-cover
+            h-8 w-8
+            rounded-full
+            object-cover
+
             sm:h-9 sm:w-9
           "
         />
@@ -270,7 +325,9 @@ export default function PatientTestimonials() {
     () => {
       const section = sectionRef.current;
 
-      if (!section) return;
+      if (!section) {
+        return;
+      }
 
       const heading = section.querySelector(
         ".reviews-heading"
@@ -294,9 +351,11 @@ export default function PatientTestimonials() {
       ).matches;
 
       /*
-       * Accessibility:
-       * Don't animate if the user has requested reduced motion.
+       * --------------------------------
+       * Accessibility
+       * --------------------------------
        */
+
       if (reduceMotion) {
         gsap.set(
           [
@@ -314,7 +373,9 @@ export default function PatientTestimonials() {
       }
 
       /*
+       * --------------------------------
        * Initial states
+       * --------------------------------
        */
 
       gsap.set(heading, {
@@ -339,10 +400,9 @@ export default function PatientTestimonials() {
       });
 
       /*
+       * --------------------------------
        * Scroll-triggered sequence
-       *
-       * Nothing starts until the user scrolls
-       * into the reviews section.
+       * --------------------------------
        */
 
       const timeline = gsap.timeline({
@@ -393,7 +453,6 @@ export default function PatientTestimonials() {
 
       /*
        * 4. Supporting cards
-       * One after another.
        */
 
       timeline.to(testimonialCards, {
@@ -413,7 +472,16 @@ export default function PatientTestimonials() {
     <section
       ref={sectionRef}
       id="patient-reviews"
-      className="mb-32 w-full px-4 py-4 sm:px-6 md:py-16 lg:px-8"
+      className="
+        mb-32 w-full
+        px-4 py-4
+
+        sm:px-6
+
+        md:py-16
+
+        lg:px-8
+      "
     >
       {/* Section Heading */}
       <div className="mx-auto max-w-6xl text-center">

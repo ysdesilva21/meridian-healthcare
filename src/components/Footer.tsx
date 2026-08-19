@@ -9,7 +9,7 @@ import li from "../assets/icon/Linkedin.png";
 import wp from "../assets/icon/Whatsapp.png";
 import yt from "../assets/icon/Youtube.png";
 
-import logo from "../assets/LOGO3.svg";
+import logo from "../assets/logo/LOGO3.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 

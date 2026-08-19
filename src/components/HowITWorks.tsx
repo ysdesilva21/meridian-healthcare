@@ -211,7 +211,7 @@ export default function HowItWorks() {
       <div className="how-supporting mt-16 flex justify-start pl-4 md:pl-15 lg:mt-16 lg:pl-40">
         <p className="sub-heading text-left">
           From finding the right provider to booking your visit,
-          <br />
+          <br className="hidden md:block"/>
           without unnecessary steps.
         </p>
       </div>

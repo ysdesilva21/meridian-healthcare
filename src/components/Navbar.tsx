@@ -5,8 +5,8 @@ import {
 } from "react";
 import gsap from "gsap";
 
-import LOGO from "../assets/LOGO.svg";
-import LOGO2 from "../assets/LOGO2.svg";
+import LOGO from "../assets/logo/LOGO.svg";
+import LOGO2 from "../assets/logo/LOGO2.svg";
 import menuClose from "../assets/icon/close.svg";
 import menuIcon from "../assets/icon/menu.svg";
 

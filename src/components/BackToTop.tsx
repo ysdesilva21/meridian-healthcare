@@ -33,12 +33,9 @@ export default function BackToTop() {
       aria-label="Back to top"
       onClick={scrollToHero}
       className={`
-        fixed z-50
+        fixed right-10 bottom-10 z-1000
 
-        /* Mobile spacing */
-        right-6 bottom-6
-
-        flex h-11 w-11 items-center justify-center
+        flex h-11 w-11 shrink-0 items-center justify-center
         rounded-full
         bg-primary-900
         text-white
@@ -56,8 +53,8 @@ export default function BackToTop() {
 
         active:translate-y-0
 
-        /* Larger screens */
-        sm:right-8 sm:bottom-8
+        sm:right-10 sm:bottom-10
+        lg:right-12 lg:bottom-12
 
         ${
           visible
@@ -68,7 +65,7 @@ export default function BackToTop() {
     >
       <ArrowUp
         aria-hidden="true"
-        className="h-5 w-5"
+        className="h-5 w-5 shrink-0"
       />
     </button>
   );

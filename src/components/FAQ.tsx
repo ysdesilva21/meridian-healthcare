@@ -303,7 +303,7 @@ export default function FAQSection({
 
           <p className="faq-subtitle mx-auto mt-6 sub-heading">
             Everything you need to know before finding your next{" "}
-            <br />
+            <br className="hidden md:block"/>
             healthcare provider.
           </p>
         </div>

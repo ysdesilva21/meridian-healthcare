@@ -16,10 +16,25 @@ export default function CTASection() {
 
       if (!section) return;
 
-      const container = section.querySelector(".cta-container");
-      const content = section.querySelector(".cta-content");
-      const buttons = section.querySelector(".cta-buttons");
-      const mockupElement = section.querySelector(".cta-mockup");
+      const container = section.querySelector(
+        ".cta-container"
+      ) as HTMLElement | null;
+
+      const content = section.querySelector(
+        ".cta-content"
+      ) as HTMLElement | null;
+
+      const buttons = section.querySelector(
+        ".cta-buttons"
+      ) as HTMLElement | null;
+
+      const mockupElement = section.querySelector(
+        ".cta-mockup"
+      ) as HTMLElement | null;
+
+      if (!container || !content || !buttons || !mockupElement) {
+        return;
+      }
 
       const reduceMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
@@ -37,7 +52,9 @@ export default function CTASection() {
       }
 
       /*
-       * Initial states
+       * --------------------------------
+       * INITIAL STATES
+       * --------------------------------
        */
 
       gsap.set(container, {
@@ -56,18 +73,20 @@ export default function CTASection() {
       });
 
       /*
-       * IMPORTANT:
-       * No scale is applied to the mockup.
-       * Its existing width/height remain unchanged.
+       * Mockup starts slightly to the right.
+       * Keep the movement small so it cannot
+       * create noticeable horizontal overflow.
        */
 
       gsap.set(mockupElement, {
-        x: 80,
+        x: 40,
         opacity: 0,
       });
 
       /*
-       * Scroll-triggered animation
+       * --------------------------------
+       * SCROLL-TRIGGERED ANIMATION
+       * --------------------------------
        */
 
       const timeline = gsap.timeline({
@@ -111,7 +130,6 @@ export default function CTASection() {
       );
 
       // 4. Mockup
-      // Slides in without scaling.
       timeline.to(
         mockupElement,
         {
@@ -125,38 +143,68 @@ export default function CTASection() {
     },
     {
       scope: sectionRef,
-    }
-  );
+  });
 
   return (
     <section
       ref={sectionRef}
       id="book-appointment"
-      className="w-full px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-32"
+      className="
+        w-full
+        overflow-hidden
+        px-4
+        py-10
+        sm:px-6
+        sm:py-14
+        lg:px-8
+        lg:py-32
+      "
     >
       <div
         className="
           cta-container
-          relative mx-auto max-w-6xl
-          rounded-3xl bg-neutral-200
+          relative
+          mx-auto
+          w-full
+          max-w-6xl
+          overflow-hidden
+          rounded-3xl
+          bg-neutral-200
           shadow-md
         "
       >
         <div
           className="
-            relative flex flex-col items-center
-            gap-8 px-6 py-10
+            relative
+            flex
+            min-w-0
+            flex-col
+            items-center
+            gap-8
+            px-6
+            py-10
 
             sm:flex-row
             sm:justify-between
             sm:gap-6
-            sm:px-10 sm:py-12
+            sm:px-10
+            sm:py-12
 
-            lg:px-14 lg:py-0
+            lg:px-14
+            lg:py-0
           "
         >
           {/* CTA Content */}
-          <div className="cta-content text-center sm:text-left">
+          <div
+            className="
+              cta-content
+              min-w-0
+              max-w-full
+              text-center
+              sm:max-w-[55%]
+              sm:text-left
+            "
+          >
             <h2 className="heading">
               Ready to Take Control
               <br />
@@ -172,7 +220,11 @@ export default function CTASection() {
             <div
               className="
                 cta-buttons
-                mt-8 flex flex-wrap justify-center gap-3
+                mt-8
+                flex
+                flex-wrap
+                justify-center
+                gap-3
                 sm:justify-start
               "
             >
@@ -180,7 +232,9 @@ export default function CTASection() {
                 type="button"
                 className="
                   button
-                  transition-all duration-200 ease-out
+                  transition-all
+                  duration-200
+                  ease-out
                   hover:-translate-y-0.5
                   hover:shadow-md
                   active:translate-y-0
@@ -197,7 +251,9 @@ export default function CTASection() {
                 type="button"
                 className="
                   sec-button
-                  transition-all duration-200 ease-out
+                  transition-all
+                  duration-200
+                  ease-out
                   hover:-translate-y-0.5
                   hover:shadow-sm
                   active:translate-y-0
@@ -213,11 +269,35 @@ export default function CTASection() {
           </div>
 
           {/* Product Mockup */}
-          <div className="cta-mockup">
+          <div
+            className="
+              cta-mockup
+              flex
+              w-full
+              min-w-0
+              justify-center
+              overflow-hidden
+              sm:w-[45%]
+              sm:shrink-0
+              sm:justify-end
+            "
+          >
             <img
               src={mockup}
               alt=""
-              className="h-auto w-125"
+              className="
+                block
+                h-auto
+                w-[260px]
+                max-w-full
+                object-contain
+
+                sm:w-[300px]
+
+                md:w-[340px]
+
+                lg:w-[400px]
+              "
             />
           </div>
         </div>

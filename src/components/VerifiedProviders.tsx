@@ -4,17 +4,17 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import chen from "../assets/None2.webp";
-import mike from "../assets/None1.webp";
-import james from "../assets/James.webp";
-import park from "../assets/Park.webp";
-import emma from "../assets/Emma.webp";
-import david from "../assets/David.webp";
-import morgan from "../assets/Morgan.webp";
-import smith from "../assets/Smith.webp";
-import sophie from "../assets/Sphie.webp";
-import jennifer from "../assets/Jennifer.webp";
-import robert from "../assets/Robert.webp";
+import chen from "../assets/providers/None2.webp";
+import mike from "../assets/providers/None1.webp";
+import james from "../assets/providers/James.webp";
+import park from "../assets/providers/Park.webp";
+import emma from "../assets/providers/Emma.webp";
+import david from "../assets/providers/David.webp";
+import morgan from "../assets/providers/Morgan.webp";
+import smith from "../assets/providers/Smith.webp";
+import sophie from "../assets/providers/Sophie.webp";
+import jennifer from "../assets/providers/Jennifer.webp";
+import robert from "../assets/providers/Robert.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -208,6 +208,7 @@ function ProviderCard({
               aria-hidden="true"
               className="h-3 w-3"
             />
+
             <span>{provider.patients}</span>
           </span>
 
@@ -293,12 +294,20 @@ function DesktopGrid() {
 --------------------------------- */
 
 function MobileCarousel() {
+  const carouselRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
+  /*
+   * --------------------------------
+   * Infinite horizontal carousel
+   * --------------------------------
+   */
+
   useEffect(() => {
+    const carousel = carouselRef.current;
     const track = trackRef.current;
 
-    if (!track) {
+    if (!carousel || !track) {
       return;
     }
 
@@ -313,42 +322,84 @@ function MobileCarousel() {
     const originalCount = PROVIDERS.length;
     const gap = 16;
 
-    const getCardWidth = () => {
-      const card = cards[0];
-
-      return card.offsetWidth + gap;
+    const getCardStep = () => {
+      return cards[0].offsetWidth + gap;
     };
 
     const context = gsap.context(() => {
-      const cardWidth = getCardWidth();
+      const cardStep = getCardStep();
 
-      gsap.to(track, {
-        x: -(cardWidth * originalCount),
-        duration: 30,
-        ease: "none",
-        repeat: -1,
-        modifiers: {
-          x: gsap.utils.unitize((value) => {
-            const x = parseFloat(value);
-
-            return x % (cardWidth * originalCount);
-          }),
-        },
+      /*
+       * Start at the first card.
+       */
+      gsap.set(track, {
+        x: 0,
       });
-    }, track);
+
+      /*
+       * Card-by-card infinite movement.
+       *
+       * Each card:
+       * 2 seconds pause
+       * 0.8 seconds movement
+       */
+      const carouselTimeline = gsap.timeline({
+        repeat: -1,
+      });
+
+      for (
+        let index = 1;
+        index <= originalCount;
+        index++
+      ) {
+        carouselTimeline
+          /*
+           * Stay on the current card.
+           */
+          .to({}, {
+            duration: 1.2,
+          })
+
+          /*
+           * Move one card.
+           */
+          .to(track, {
+            x: -(cardStep * index),
+            duration: 0.8,
+            ease: "power2.inOut",
+          });
+      }
+
+      /*
+       * Seamlessly return to the beginning.
+       */
+      carouselTimeline.set(track, {
+        x: 0,
+      });
+    }, carousel);
 
     return () => {
       context.revert();
     };
   }, []);
 
+  /*
+   * Duplicate providers for seamless looping.
+   */
   const carouselProviders = [
     ...PROVIDERS,
     ...PROVIDERS,
   ];
 
   return (
-    <div className="provider-carousel overflow-hidden md:hidden">
+    <div
+      ref={carouselRef}
+      className="
+        provider-carousel
+        overflow-hidden
+        md:hidden
+      "
+    >
       <div
         ref={trackRef}
         className="flex w-max gap-4"
@@ -360,7 +411,11 @@ function MobileCarousel() {
           >
             <ProviderCard
               provider={provider}
-              className="w-[230px] rounded-3xl p-3"
+              className="
+                w-[230px]
+                rounded-3xl
+                p-3
+              "
             />
           </div>
         ))}
@@ -372,7 +427,9 @@ function MobileCarousel() {
         className="mt-5 flex justify-center gap-2"
       >
         <span className="h-2 w-5 rounded-full bg-primary" />
+
         <span className="h-2 w-2 rounded-full bg-neutral-300" />
+
         <span className="h-2 w-2 rounded-full bg-neutral-300" />
       </div>
     </div>
@@ -390,30 +447,48 @@ export default function VerifiedProviders() {
     () => {
       const section = sectionRef.current;
 
-      if (!section) return;
+      if (!section) {
+        return;
+      }
 
-      const heading = section.querySelector(".providers-heading");
-      const subtitle = section.querySelector(".providers-subtitle");
+      const heading = section.querySelector(
+        ".providers-heading"
+      );
+
+      const subtitle = section.querySelector(
+        ".providers-subtitle"
+      );
+
+      const mobileCarousel = section.querySelector(
+        ".provider-carousel"
+      );
+
+      const desktopGrid = section.querySelector(
+        ".provider-grid"
+      );
 
       const desktopCards = gsap.utils.toArray<HTMLElement>(
         ".provider-grid .provider-card"
-      );
-
-      const mobileCards = gsap.utils.toArray<HTMLElement>(
-        ".provider-carousel .provider-card"
       );
 
       const reduceMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
+      /*
+       * --------------------------------
+       * Reduced Motion
+       * --------------------------------
+       */
+
       if (reduceMotion) {
         gsap.set(
           [
             heading,
             subtitle,
+            desktopGrid,
+            mobileCarousel,
             ...desktopCards,
-            ...mobileCards,
           ],
           {
             clearProps: "all",
@@ -424,10 +499,10 @@ export default function VerifiedProviders() {
       }
 
       /*
-      * --------------------------------
-      * Initial states
-      * --------------------------------
-      */
+       * --------------------------------
+       * Initial states
+       * --------------------------------
+       */
 
       gsap.set(heading, {
         y: 40,
@@ -439,19 +514,32 @@ export default function VerifiedProviders() {
         opacity: 0,
       });
 
-      gsap.set(
-        [...desktopCards, ...mobileCards],
-        {
-          y: 45,
-          opacity: 0,
-        }
-      );
+      /*
+       * Desktop cards.
+       */
+      gsap.set(desktopCards, {
+        y: 45,
+        opacity: 0,
+      });
 
       /*
-      * --------------------------------
-      * Scroll-triggered animation
-      * --------------------------------
-      */
+       * Mobile carousel.
+       *
+       * Keep it hidden initially.
+       * A separate ScrollTrigger below will
+       * reveal it when the actual cards reach
+       * the viewport.
+       */
+      gsap.set(mobileCarousel, {
+        y: 35,
+        opacity: 0,
+      });
+
+      /*
+       * --------------------------------
+       * Main section animation
+       * --------------------------------
+       */
 
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -462,8 +550,8 @@ export default function VerifiedProviders() {
       });
 
       /*
-      * 1. Heading
-      */
+       * 1. Heading
+       */
 
       timeline.to(heading, {
         y: 0,
@@ -473,8 +561,8 @@ export default function VerifiedProviders() {
       });
 
       /*
-      * 2. Subtitle
-      */
+       * 2. Subtitle
+       */
 
       timeline.to(
         subtitle,
@@ -488,9 +576,13 @@ export default function VerifiedProviders() {
       );
 
       /*
-      * 3. Desktop cards
-      * One card at a time
-      */
+       * --------------------------------
+       * 3. Desktop cards
+       * --------------------------------
+       *
+       * Desktop continues to animate as part
+       * of the section sequence.
+       */
 
       timeline.to(
         desktopCards,
@@ -505,21 +597,46 @@ export default function VerifiedProviders() {
       );
 
       /*
-      * 4. Mobile cards
-      * One card at a time
-      */
+       * --------------------------------
+       * Mobile card reveal
+       * --------------------------------
+       *
+       * IMPORTANT:
+       *
+       * We do NOT add the mobile carousel
+       * to the timeline above.
+       *
+       * Instead, it gets its own ScrollTrigger.
+       *
+       * This means the mobile cards reveal when
+       * the carousel itself reaches the viewport,
+       * rather than waiting for the heading +
+       * subtitle + desktop animation sequence.
+       */
 
-      timeline.to(
-        mobileCards,
-        {
+      if (mobileCarousel) {
+        gsap.to(mobileCarousel, {
           y: 0,
           opacity: 1,
-          duration: 0.5,
-          stagger: 0.1,
+          duration: 0.65,
           ease: "power3.out",
-        },
-        "+=0.2"
-      );
+
+          scrollTrigger: {
+            trigger: mobileCarousel,
+
+            /*
+             * Start when the top of the carousel
+             * gets close to the bottom of the screen.
+             *
+             * This makes the cards appear naturally
+             * as the user scrolls toward them.
+             */
+            start: "top 88%",
+
+            once: true,
+          },
+        });
+      }
     },
     {
       scope: sectionRef,
@@ -531,10 +648,15 @@ export default function VerifiedProviders() {
       ref={sectionRef}
       id="specialties"
       className="
-        mb-16 w-full px-4 py-4
+        mb-16 w-full
+        px-4 py-4
+
         sm:px-6
+
         md:py-16
-        lg:mb-32 lg:px-8
+
+        lg:mb-32
+        lg:px-8
       "
     >
       {/* Section Heading */}
@@ -552,6 +674,7 @@ export default function VerifiedProviders() {
       {/* Provider Collection */}
       <div className="mt-12">
         <DesktopGrid />
+
         <MobileCarousel />
       </div>
     </section>
