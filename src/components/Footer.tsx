@@ -114,10 +114,12 @@ export default function SiteFooter() {
       if (!footer) return;
 
       const brand = footer.querySelector(".footer-brand");
+
       const columns = gsap.utils.toArray<HTMLElement>(
         ".footer-column",
         footer
       );
+
       const contact = footer.querySelector(".footer-contact");
       const divider = footer.querySelector(".footer-divider");
       const bottomBar = footer.querySelector(".footer-bottom");
@@ -126,7 +128,24 @@ export default function SiteFooter() {
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
-      if (reduceMotion) {
+      /*
+       * Disable footer animation on mobile.
+       *
+       * This keeps the complete footer visible during
+       * mobile rendering and full-page screenshots.
+       */
+      const isMobile = window.matchMedia(
+        "(max-width: 767px)"
+      ).matches;
+
+      /*
+       * Static state
+       *
+       * Used for:
+       * - reduced motion
+       * - mobile devices
+       */
+      if (reduceMotion || isMobile) {
         gsap.set(
           [
             brand,
@@ -142,6 +161,10 @@ export default function SiteFooter() {
 
         return;
       }
+
+      /* --------------------------------
+         Desktop / Tablet Animation
+      --------------------------------- */
 
       /*
        * Initial states
@@ -181,7 +204,8 @@ export default function SiteFooter() {
         },
       });
 
-      // 1. Brand
+      /* 1. Brand */
+
       timeline.to(brand, {
         y: 0,
         opacity: 1,
@@ -189,7 +213,8 @@ export default function SiteFooter() {
         ease: "power3.out",
       });
 
-      // 2. Footer columns appear one by one
+      /* 2. Footer columns */
+
       timeline.to(
         columns,
         {
@@ -202,7 +227,8 @@ export default function SiteFooter() {
         "-=0.3"
       );
 
-      // 3. Contact
+      /* 3. Contact */
+
       timeline.to(
         contact,
         {
@@ -214,7 +240,8 @@ export default function SiteFooter() {
         "-=0.25"
       );
 
-      // 4. Divider
+      /* 4. Divider */
+
       timeline.to(
         divider,
         {
@@ -225,7 +252,8 @@ export default function SiteFooter() {
         "-=0.15"
       );
 
-      // 5. Bottom bar
+      /* 5. Bottom bar */
+
       timeline.to(
         bottomBar,
         {
@@ -246,20 +274,29 @@ export default function SiteFooter() {
     <footer
       ref={footerRef}
       className="
-        w-full bg-primary-900
-        px-4 pt-12
+        w-full
+        bg-primary-900
+        px-4
+        pt-12
 
-        sm:px-6 sm:pt-14
+        sm:px-6
+        sm:pt-14
 
-        lg:px-8 lg:pt-16
+        lg:px-8
+        lg:pt-16
       "
     >
       <div className="mx-auto max-w-6xl">
 
-        {/* Main Footer Grid */}
+        {/* --------------------------------
+            Main Footer Grid
+        --------------------------------- */}
+
         <div
           className="
-            grid grid-cols-1 gap-10
+            grid
+            grid-cols-1
+            gap-10
 
             sm:grid-cols-2
             sm:gap-x-8
@@ -270,68 +307,131 @@ export default function SiteFooter() {
           "
         >
 
-          {/* Brand */}
+          {/* --------------------------------
+              Brand
+          --------------------------------- */}
+
           <div className="footer-brand sm:col-span-2 lg:col-span-1">
-            <div className="mb-[100px] flex items-center gap-2">
+
+            <div
+              className="
+                mb-12
+                flex
+                items-center
+                gap-2
+
+                lg:mb-[100px]
+              "
+            >
               <img
                 src={logo}
                 alt="Meridian Health"
               />
             </div>
 
-            <p className="mt-4 max-w-xs text-[16px] text-neutral-300">
+            <p
+              className="
+                mt-4
+                max-w-xs
+                text-[16px]
+                text-neutral-300
+              "
+            >
               Helping patients find trusted{" "}
               <br className="hidden md:block" />
               healthcare providers.
             </p>
 
             {/* Social Links */}
-            <div className="mt-5 flex items-center gap-3">
-              {SOCIALS.map(({ icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="
-                    flex h-9 w-9 items-center justify-center
-                    rounded-full
-                    border border-slate-500/60
-                    transition-all duration-200 ease-out
-                    hover:-translate-y-0.5
-                    hover:border-white
-                    hover:shadow-sm
-                    focus-visible:outline-none
-                    focus-visible:ring-2
-                    focus-visible:ring-white
-                    focus-visible:ring-offset-2
-                    focus-visible:ring-offset-primary-900
-                    active:translate-y-0
-                  "
-                >
-                  <img
-                    src={icon}
-                    alt=""
-                    className="h-5 w-5 object-contain"
-                  />
-                </a>
-              ))}
+
+            <div
+              className="
+                mt-5
+                flex
+                items-center
+                gap-3
+              "
+            >
+              {SOCIALS.map(
+                ({
+                  icon,
+                  label,
+                  href,
+                }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    aria-label={label}
+                    className="
+                      flex
+                      h-9
+                      w-9
+                      items-center
+                      justify-center
+                      rounded-full
+                      border
+                      border-slate-500/60
+                      transition-all
+                      duration-200
+                      ease-out
+
+                      hover:-translate-y-0.5
+                      hover:border-white
+                      hover:shadow-sm
+
+                      focus-visible:outline-none
+                      focus-visible:ring-2
+                      focus-visible:ring-white
+                      focus-visible:ring-offset-2
+                      focus-visible:ring-offset-primary-900
+
+                      active:translate-y-0
+                    "
+                  >
+                    <img
+                      src={icon}
+                      alt=""
+                      className="
+                        h-5
+                        w-5
+                        object-contain
+                      "
+                    />
+                  </a>
+                )
+              )}
             </div>
           </div>
 
-          {/* Services */}
+          {/* --------------------------------
+              Services
+          --------------------------------- */}
+
           <FooterColumn
             title="Services"
             links={SERVICES}
           />
 
-          {/* Quick Links */}
+          {/* --------------------------------
+              Quick Links
+          --------------------------------- */}
+
           <FooterColumn
             title="Quick Links"
             links={QUICK_LINKS}
           />
 
-          {/* Contact */}
-          <div className="footer-contact sm:col-span-2 lg:col-span-1">
+          {/* --------------------------------
+              Contact
+          --------------------------------- */}
+
+          <div
+            className="
+              footer-contact
+              sm:col-span-2
+              lg:col-span-1
+            "
+          >
             <h3 className="text-[24px] text-white">
               Contact Us
             </h3>
@@ -339,16 +439,25 @@ export default function SiteFooter() {
             <ul className="mt-4 space-y-3">
 
               {/* Address */}
+
               <li className="flex items-start gap-2.5">
                 <MapPin
                   aria-hidden="true"
                   className="
-                    mt-0.5 h-6 w-6
-                    shrink-0 text-neutral-300
+                    mt-0.5
+                    h-6
+                    w-6
+                    shrink-0
+                    text-neutral-300
                   "
                 />
 
-                <span className="text-[12px] text-neutral-300">
+                <span
+                  className="
+                    text-[12px]
+                    text-neutral-300
+                  "
+                >
                   500 Market Street, Suite 1200
                   <br />
                   San Francisco, CA 94105
@@ -358,11 +467,14 @@ export default function SiteFooter() {
               </li>
 
               {/* Email */}
+
               <li className="flex items-center gap-2.5">
                 <Mail
                   aria-hidden="true"
                   className="
-                    h-6 w-6 shrink-0
+                    h-6
+                    w-6
+                    shrink-0
                     text-neutral-300
                   "
                 />
@@ -370,9 +482,13 @@ export default function SiteFooter() {
                 <a
                   href="mailto:support@meridianhealth.com"
                   className="
-                    text-[12px] text-neutral-300
-                    transition-colors duration-200
+                    text-[12px]
+                    text-neutral-300
+                    transition-colors
+                    duration-200
+
                     hover:text-white
+
                     focus-visible:outline-none
                     focus-visible:ring-2
                     focus-visible:ring-white
@@ -385,11 +501,14 @@ export default function SiteFooter() {
               </li>
 
               {/* Phone */}
+
               <li className="flex items-center gap-2.5">
                 <Phone
                   aria-hidden="true"
                   className="
-                    h-6 w-6 shrink-0
+                    h-6
+                    w-6
+                    shrink-0
                     text-neutral-300
                   "
                 />
@@ -397,9 +516,13 @@ export default function SiteFooter() {
                 <a
                   href="tel:+80569125152"
                   className="
-                    text-[12px] text-neutral-300
-                    transition-colors duration-200
+                    text-[12px]
+                    text-neutral-300
+                    transition-colors
+                    duration-200
+
                     hover:text-white
+
                     focus-visible:outline-none
                     focus-visible:ring-2
                     focus-visible:ring-white
@@ -415,21 +538,34 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        {/* Divider */}
+        {/* --------------------------------
+            Divider
+        --------------------------------- */}
+
         <div
           className="
             footer-divider
-            mt-10 border-t border-slate-600/50
+            mt-10
+            border-t
+            border-slate-600/50
+
             sm:mt-12
           "
         />
 
-        {/* Bottom Bar */}
+        {/* --------------------------------
+            Bottom Bar
+        --------------------------------- */}
+
         <div
           className="
             footer-bottom
-            flex flex-col items-center gap-4
-            py-6 text-center
+            flex
+            flex-col
+            items-center
+            gap-4
+            py-6
+            text-center
 
             sm:flex-row
             sm:items-center
@@ -445,9 +581,12 @@ export default function SiteFooter() {
 
           <ul
             className="
-              flex flex-wrap
-              items-center justify-center
-              gap-x-5 gap-y-2
+              flex
+              flex-wrap
+              items-center
+              justify-center
+              gap-x-5
+              gap-y-2
 
               sm:justify-end
             "
@@ -457,9 +596,13 @@ export default function SiteFooter() {
                 <a
                   href={link.href}
                   className="
-                    text-xs text-neutral-300
-                    transition-colors duration-200
+                    text-xs
+                    text-neutral-300
+                    transition-colors
+                    duration-200
+
                     hover:text-white
+
                     focus-visible:outline-none
                     focus-visible:ring-2
                     focus-visible:ring-white
@@ -473,7 +616,6 @@ export default function SiteFooter() {
             ))}
           </ul>
         </div>
-
       </div>
     </footer>
   );
