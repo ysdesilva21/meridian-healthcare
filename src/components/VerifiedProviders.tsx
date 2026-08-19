@@ -4,17 +4,17 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import chen from "../assets/providers/None2.webp";
-import mike from "../assets/providers/None1.webp";
-import james from "../assets/providers/James.webp";
-import park from "../assets/providers/Park.webp";
-import emma from "../assets/providers/Emma.webp";
-import david from "../assets/providers/David.webp";
+import chen from "../assets/providers/none2.webp";
+import mike from "../assets/providers/none1.webp";
+import james from "../assets/providers/james.webp";
+import park from "../assets/providers/park.webp";
+import emma from "../assets/providers/emma.webp";
+import david from "../assets/providers/david.webp";
 import morgan from "../assets/providers/Morgan.webp";
-import smith from "../assets/providers/Smith.webp";
-import sophie from "../assets/providers/Sophie.webp";
-import jennifer from "../assets/providers/Jennifer.webp";
-import robert from "../assets/providers/Robert.webp";
+import smith from "../assets/providers/smith.webp";
+import sophie from "../assets/providers/sophie.webp";
+import jennifer from "../assets/providers/jennifer.webp";
+import robert from "../assets/providers/robert.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
