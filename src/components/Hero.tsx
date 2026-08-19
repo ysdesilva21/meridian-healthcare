@@ -200,8 +200,8 @@ export default function Hero() {
                     xl:text-5xl
                   "
                 >
-                  Find the right <br className="hidden md:block"/>
-                  doctor in minutes, <br className="hidden md:block"/>
+                  Find the right 
+                  doctor in minutes, 
                   not hours.
                 </h1>
 
@@ -212,8 +212,8 @@ export default function Hero() {
                     xl:block
                   "
                 >
-                  Compare verified specialists, check insurance <br />
-                  compatibility, and book appointments online <br />
+                  Compare verified specialists, check insurance <br className="hidden md:block"/>
+                  compatibility, and book appointments online<br className="hidden md:block"/>
                   without phone calls.
                 </h2>
 

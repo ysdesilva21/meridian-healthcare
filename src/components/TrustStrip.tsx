@@ -34,51 +34,60 @@ export default function Trust() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    const ctx = gsap.context(() => {
-      /*
-       * Reduced motion:
-       * Show everything immediately.
-       */
-      if (prefersReducedMotion) {
-        gsap.set(
-          ".trust-desktop-bg, .trust-mobile-bg",
-          { opacity: 1, y: 0 },
-        );
+    const desktopSection = document.querySelector(".trust-desktop");
+    const mobileSection = document.querySelector(".trust-mobile");
 
-        gsap.set(
-          ".trust-desktop-item, .trust-mobile-item",
-          { opacity: 1, y: 0 },
-        );
-
-        return;
-      }
-
-      /*
-       * Desktop / Tablet
-       * ----------------
-       * Background appears only when the section
-       * enters the viewport.
-       */
-      const desktopTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".trust-desktop",
-          start: "top 80%",
-          once: true,
+    /*
+     * Reduced motion:
+     * Show everything immediately.
+     */
+    if (prefersReducedMotion) {
+      gsap.set(
+        ".trust-desktop-bg, .trust-desktop-item, .trust-mobile-bg, .trust-mobile-item",
+        {
+          opacity: 1,
+          y: 0,
         },
+      );
+
+      return;
+    }
+
+    /*
+     * IMPORTANT:
+     * Set the initial hidden state BEFORE ScrollTrigger
+     * starts watching the sections.
+     */
+    gsap.set(".trust-desktop-bg, .trust-desktop-item", {
+      opacity: 0,
+      y: 25,
+    });
+
+    gsap.set(".trust-mobile-bg, .trust-mobile-item", {
+      opacity: 0,
+      y: 25,
+    });
+
+    /*
+     * Desktop / Tablet
+     */
+    if (desktopSection) {
+      const desktopTimeline = gsap.timeline({
+        paused: true,
       });
 
       desktopTimeline
-        .from(".trust-desktop-bg", {
-          opacity: 0,
-          y: 25,
+        .to(".trust-desktop-bg", {
+          opacity: 1,
+          y: 0,
           duration: 0.7,
           ease: "power3.out",
         })
-        .from(
+        .to(
           ".trust-desktop-item",
           {
-            y: 25,
-            opacity: 0,
+            opacity: 1,
+            y: 0,
             duration: 0.6,
             stagger: 0.12,
             ease: "power3.out",
@@ -86,41 +95,52 @@ export default function Trust() {
           "-=0.35",
         );
 
-      /*
-       * Mobile
-       * ------
-       * Background/content appears only when the
-       * mobile trust section enters the viewport.
-       */
-      const mobileTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".trust-mobile",
-          start: "top 80%",
-          once: true,
+      ScrollTrigger.create({
+        trigger: desktopSection,
+        start: "top 80%",
+        once: true,
+        onEnter: () => {
+          desktopTimeline.play();
         },
+      });
+    }
+
+    /*
+     * Mobile
+     */
+    if (mobileSection) {
+      const mobileTimeline = gsap.timeline({
+        paused: true,
       });
 
       mobileTimeline
-        .from(".trust-mobile-bg", {
-          opacity: 0,
-          y: 25,
+        .to(".trust-mobile-bg", {
+          opacity: 1,
+          y: 0,
           duration: 0.7,
           ease: "power3.out",
         })
-        .from(
+        .to(
           ".trust-mobile-item",
           {
-            y: 25,
-            opacity: 0,
+            opacity: 1,
+            y: 0,
             duration: 0.6,
             stagger: 0.12,
             ease: "power3.out",
           },
           "-=0.35",
         );
-    });
 
-    return () => ctx.revert();
+      ScrollTrigger.create({
+        trigger: mobileSection,
+        start: "top 80%",
+        once: true,
+        onEnter: () => {
+          mobileTimeline.play();
+        },
+      });
+    }
   });
 
   return (
@@ -195,9 +215,11 @@ export default function Trust() {
                   trust-mobile-item
                   flex flex-col gap-1
                   py-4
-                  ${isLeft
-                    ? "self-start pl-12"
-                    : "self-end pr-12"}
+                  ${
+                    isLeft
+                      ? "self-start pl-12"
+                      : "self-end pr-12"
+                  }
                 `}
               >
                 <p
@@ -205,9 +227,11 @@ export default function Trust() {
                     text-[24px]
                     leading-tight
                     text-primary
-                    ${isLeft
-                      ? "self-start"
-                      : "self-end"}
+                    ${
+                      isLeft
+                        ? "self-start"
+                        : "self-end"
+                    }
                   `}
                 >
                   {item.head}
@@ -219,9 +243,11 @@ export default function Trust() {
                     text-[12px]
                     leading-5
                     text-primary
-                    ${isLeft
-                      ? "text-left"
-                      : "text-right"}
+                    ${
+                      isLeft
+                        ? "text-left"
+                        : "text-right"
+                    }
                   `}
                 >
                   {item.tagline}

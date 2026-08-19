@@ -21,9 +21,9 @@ export default function BackToTop() {
   }, []);
 
   const scrollToHero = () => {
-    document.getElementById("hero")?.scrollIntoView({
+    window.scrollTo({
+      top: 0,
       behavior: "smooth",
-      block: "start",
     });
   };
 
@@ -33,15 +33,26 @@ export default function BackToTop() {
       aria-label="Back to top"
       onClick={scrollToHero}
       className={`
-        fixed right-10 bottom-10 z-1000
+        fixed
+        right-4
+        bottom-4
+        z-[1000]
 
-        flex h-11 w-11 shrink-0 items-center justify-center
+        flex
+        h-11
+        w-11
+        shrink-0
+        items-center
+        justify-center
+
         rounded-full
         bg-primary-900
         text-white
         shadow-md
 
-        transition-all duration-300 ease-out
+        transition-all
+        duration-300
+        ease-out
 
         hover:-translate-y-1
         hover:shadow-lg
@@ -53,8 +64,14 @@ export default function BackToTop() {
 
         active:translate-y-0
 
-        sm:right-10 sm:bottom-10
-        lg:right-12 lg:bottom-12
+        sm:right-6
+        sm:bottom-6
+
+        md:right-8
+        md:bottom-8
+
+        lg:right-12
+        lg:bottom-12
 
         ${
           visible
@@ -65,7 +82,7 @@ export default function BackToTop() {
     >
       <ArrowUp
         aria-hidden="true"
-        className="h-5 w-5 shrink-0"
+        className="h-5 w-5"
       />
     </button>
   );
