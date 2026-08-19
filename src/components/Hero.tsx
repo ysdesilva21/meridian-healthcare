@@ -200,8 +200,8 @@ export default function Hero() {
                     xl:text-5xl
                   "
                 >
-                  Find the right <br />
-                  doctor in minutes, <br />
+                  Find the right <br className="hidden md:block"/>
+                  doctor in minutes, <br className="hidden md:block"/>
                   not hours.
                 </h1>
 
