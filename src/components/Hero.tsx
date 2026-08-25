@@ -175,7 +175,6 @@ export default function Hero() {
             alt=""
             aria-hidden="true"
             fetchPriority="high"
-            decoding="async"
             className="hero-desktop-bg h-full w-full object-cover"
           />
         </div>

@@ -1,61 +1,89 @@
 # Meridian Health
 
-A responsive healthcare landing page designed to make finding and booking trusted healthcare providers feel simpler, clearer, and more trustworthy.
+**A healthcare booking experience designed to turn patient intent into action.**
 
-**Live Website:** https://meridian-healthcare.vercel.app/
+A responsive healthcare landing page created with a conversion-focused approach — using trust signals, verified providers, simple booking steps, and minimal visual noise to guide visitors toward becoming booking users.
 
----
+**Live Website:** [meridian-healthcare.vercel.app](https://meridian-healthcare.vercel.app/)
 
-![Meridian Health desktop preview](./docs/screenshots/desktop.png)
+![Meridian Health — Desktop Preview](./docs/screenshots/desktop.png)
 
 ---
 
 ## Overview
 
-Meridian Health is a frontend product concept for a healthcare appointment platform. The landing page is designed around a simple patient journey: understand the service, build trust, explore providers, and take action.
+Meridian Health is a **responsive healthcare landing page concept** built around a simple objective:
 
-The project focuses on reducing the friction between:
+> **Turn “I should see a doctor” into “I have an appointment.”**
 
-> "I should see a doctor."
+The experience is designed to reduce hesitation and cognitive load throughout the patient's journey. Instead of overwhelming users with information, the interface uses **clear hierarchy, concise content, trust signals, verified providers, and straightforward booking steps** to move users toward action.
 
-and
+The design focuses on answering the questions a potential patient needs answered before booking:
 
-> "I have an appointment."
+* Can I trust this service?
+* Are the providers verified?
+* How does booking work?
+* Can I find care quickly?
+* What should I expect?
 
-The interface was designed around clarity, trust, accessibility, and a low-friction path toward booking care.
+Every section contributes to that journey rather than existing purely as visual content.
 
 ---
 
 ## Features
 
-* Responsive healthcare landing page
-* Clear primary booking call-to-action
-* Provider discovery and verified doctor cards
-* Same-day appointment messaging
-* Patient testimonials and social proof
-* Insurance and virtual consultation messaging
-* Three-step "Find Care" journey
-* FAQ accordion
-* Responsive navigation
-* Mobile, tablet, and desktop layouts
-* Scroll-based animations and micro-interactions
-* Optimized WebP imagery
+* 🎯 Conversion-focused healthcare landing page
+* 🩺 Verified provider discovery
+* 📅 Clear appointment and booking CTAs
+* ⚡ Same-day care messaging
+* 🔐 Trust and privacy signals
+* ⭐ Patient testimonials and social proof
+* 🧭 Three-step care discovery journey
+* 💬 FAQ accordion
+* 📱 Responsive navigation
+* 🖥️ Desktop, tablet, and mobile layouts
+* ✨ Scroll-based animations and micro-interactions
+* 🖼️ Optimized WebP imagery
+* ♿ Accessibility-conscious interface
 
 ---
 
 ## Design
 
-The visual direction was designed specifically for a healthcare context.
+Meridian Health was designed around one principle:
 
-### Design principles
+> **Make choosing healthcare feel simple and trustworthy.**
 
-* **Trust** — Clear hierarchy, verification signals, and restrained visual language
-* **Clarity** — Simple navigation and concise content
-* **Low cognitive load** — Important actions are visually prioritized
-* **Accessibility** — Strong contrast, readable typography, and responsive layouts
-* **Conversion** — Booking actions remain visible and easy to understand
+The visual system deliberately avoids excessive decoration and long blocks of copy. Instead, the interface relies on hierarchy, spacing, typography, imagery, and carefully placed trust signals.
 
-The interface uses a healthcare-oriented visual system built around deep blue, muted teal, and soft neutral tones.
+### Design Principles
+
+**Trust**
+Verified providers, patient testimonials, security messaging, and clear information establish credibility before asking users to book.
+
+**Clarity**
+Content is intentionally concise, with each section communicating one primary idea.
+
+**Low Cognitive Load**
+The interface avoids unnecessary choices and keeps the primary booking journey visually obvious.
+
+**Conversion**
+Calls to action are consistently positioned around moments where users have enough context to take the next step.
+
+**Accessibility**
+Readable typography, strong contrast, semantic structure, responsive layouts, and clear interaction states support a wider range of users.
+
+### Visual Direction
+
+The visual language combines:
+
+* Deep healthcare-oriented blues
+* Muted teal accents
+* Soft neutral surfaces
+* Generous whitespace
+* Strong typographic hierarchy
+* Restrained rounded components
+* Human-centered healthcare imagery
 
 ---
 
@@ -63,38 +91,68 @@ The interface uses a healthcare-oriented visual system built around deep blue, m
 
 ### Frontend
 
-* React
-* TypeScript
-* Vite
-* Tailwind CSS
+* **React**
+* **TypeScript**
+* **Vite**
+* **Tailwind CSS**
 
 ### Animation
 
-* GSAP
-* ScrollTrigger
-* `@gsap/react`
+* **GSAP**
+* **ScrollTrigger**
+* **@gsap/react**
 
 ### Icons
 
-* Lucide React
+* **Lucide React**
 
 ### Deployment
 
-* Vercel
+* **Vercel**
+
+---
+
+## Development
+
+The project was developed as a component-based React application with a focus on maintainability, responsive behavior, animation performance, and reusable UI patterns.
+
+The implementation separates major page sections and reusable interface components rather than treating the landing page as a single large component.
+
+### Development Focus
+
+* Component-based architecture
+* Responsive-first implementation
+* Reusable UI patterns
+* Type-safe React development
+* Controlled GSAP animations
+* Optimized image assets
+* Semantic HTML structure
+* Production-oriented Vite configuration
 
 ---
 
 ## Project Structure
 
 ```text
-src/
-├── assets/
-├── components/
-├── sections/
-├── App.tsx
-└── main.tsx
-
-public/
+meridian/
+├── docs/
+│   └── screenshots/
+│       └── desktop.png
+│
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── sections/
+│   ├── App.css
+│   ├── App.tsx
+│   ├── index.css
+│   └── main.tsx
+|
+├── index.html
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── README.md
 ```
 
 ---
@@ -104,8 +162,8 @@ public/
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repository-url>
-cd meridian
+git clone https://github.com/ysdesilva21/meridian-healthcare.git
+cd meridian-health
 ```
 
 ### 2. Install dependencies
@@ -120,7 +178,7 @@ npm install
 npm run dev
 ```
 
-The application will be available at the local development URL provided by Vite.
+Vite will provide the local development URL in your terminal.
 
 ---
 
@@ -140,86 +198,82 @@ npm run preview
 
 ---
 
-## Deployment
-
-The project is deployed using Vercel.
-
-The production site is deployed on Vercel.
-
----
-
 ## Responsive Design
 
-Meridian was designed and tested across:
+Meridian Health was designed to provide a consistent experience across:
 
 * Desktop
 * Tablet
 * Mobile
 
-The layout adapts navigation, typography, spacing, cards, imagery, and interactive elements according to viewport size.
+Responsive behavior was considered across:
+
+* Navigation
+* Typography
+* Section spacing
+* Provider cards
+* Appointment UI
+* Images
+* CTAs
+* FAQ interactions
+* Footer layout
+
+The goal was not simply to shrink the desktop layout, but to preserve the **booking journey and visual hierarchy** at every viewport size.
 
 ---
 
-## Accessibility
+## Performance & Accessibility
 
-The interface was designed with accessibility considerations including:
+Performance and accessibility were considered throughout development.
 
-* High color contrast
-* Readable typography
-* Clear interactive states
-* Semantic HTML
-* Responsive layouts
-* Keyboard-friendly interactions where applicable
-* Reduced visual complexity
-
----
-
-## Performance
-
-The project includes several frontend optimizations:
+### Performance
 
 * WebP image assets
 * Responsive image sizing
-* Component-based architecture
-* Production builds through Vite
-* Optimized animation usage
-* Lazy loading where appropriate
+* Component-based rendering
+* Vite production builds
+* Controlled GSAP animations
+* Reduced unnecessary animation work
+
+### Accessibility
+
+* Semantic HTML
+* Strong color contrast
+* Readable typography
+* Clear interactive states
+* Responsive layouts
+* Reduced visual complexity
+
 
 ---
 
 ## Screenshots
 
-The final presentation includes:
+### Desktop
 
-* Hero and primary booking CTA
-* Patient trust metrics
-* Patient benefits and product mockup
-* Three-step care journey
-* Verified provider showcase
-* Patient testimonials
-* Frequently asked questions
-* Final conversion CTA
-* Responsive footer
+![Meridian Health Desktop](./docs/screenshots/desktop.png)
 
-Additional mobile and responsive screenshots can be added to `docs/screenshots/` as the project is documented for portfolio presentation.
 
 ---
 
-## Project Status
+## Credits
 
-**Status: Completed**
+Meridian Health is an original frontend and product design project by **Sanju De Silva**.
 
-Meridian Health was developed as a frontend/product design project focused on healthcare discovery, appointment booking, responsive design, visual trust, and conversion-oriented UX.
+Third-party resources such as photography, illustrations, icons, fonts, and mockups may be sourced from external providers. Those assets remain subject to their respective licenses and terms.
+
+* **Icons:** Lucide React
+* **Images / Visual Assets:** Third-party assets used under their respective licenses (Pexels, Pixabay, Unsplash)
 
 ---
 
-## Assets & Third-Party Resources
+## License
 
-The project contains third-party visual assets sourced from free or permissively licensed resources, including photography and open-source/free mockups.
+The source code and original interface implementation are provided for **portfolio and educational purposes**.
 
-Third-party assets remain subject to the licenses and terms of their original sources. The project does not claim ownership of those assets.
+You may reference the implementation and structure for learning, but the original Meridian Health branding, visual design, content, and project assets should not be redistributed or presented as your own work.
 
-The original source code and interface implementation created for this project remain the work of the author.
+Third-party assets included in the project remain subject to their original licenses.
 
 ---
 
@@ -227,4 +281,8 @@ The original source code and interface implementation created for this project r
 
 **Sanju De Silva**
 
-Frontend Developer & Product Designer
+Frontend Developer & UI/UX Designer
+
+**React · TypeScript · Tailwind CSS · GSAP**
+
+[GitHub](https://github.com/ysdesilva21)
