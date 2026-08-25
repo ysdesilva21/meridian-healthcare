@@ -247,15 +247,6 @@ Performance and accessibility were considered throughout development.
 
 ---
 
-## Screenshots
-
-### Desktop
-
-![Meridian Health Desktop](./docs/screenshots/desktop.png)
-
-
----
-
 ## Credits
 
 Meridian Health is an original frontend and product design project by **Sanju De Silva**.
