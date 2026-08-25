@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,62 +30,89 @@ const TRUST_ITEMS: TrustItem[] = [
 ];
 
 export default function Trust() {
-  useGSAP(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+  const trustRef = useRef<HTMLDivElement>(null);
 
-    const desktopSection = document.querySelector(".trust-desktop");
-    const mobileSection = document.querySelector(".trust-mobile");
+  useGSAP(
+    () => {
+      const trust = trustRef.current;
 
-    /*
-     * Reduced motion:
-     * Show everything immediately.
-     */
-    if (prefersReducedMotion) {
+      if (!trust) return;
+
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      const desktopBackground = trust.querySelector(
+        ".trust-desktop-bg",
+      );
+
+      const desktopItems = trust.querySelectorAll(
+        ".trust-desktop-item",
+      );
+
+      const mobileBackground = trust.querySelector(
+        ".trust-mobile-bg",
+      );
+
+      const mobileItems = trust.querySelectorAll(
+        ".trust-mobile-item",
+      );
+
+      /*
+       * Reduced motion
+       */
+      if (prefersReducedMotion) {
+        gsap.set(
+          [
+            desktopBackground,
+            ...desktopItems,
+            mobileBackground,
+            ...mobileItems,
+          ],
+          {
+            opacity: 1,
+            y: 0,
+          },
+        );
+
+        return;
+      }
+
+      /*
+       * Initial state
+       */
       gsap.set(
-        ".trust-desktop-bg, .trust-desktop-item, .trust-mobile-bg, .trust-mobile-item",
+        [
+          desktopBackground,
+          ...desktopItems,
+          mobileBackground,
+          ...mobileItems,
+        ],
         {
-          opacity: 1,
-          y: 0,
+          opacity: 0,
+          y: 25,
         },
       );
 
-      return;
-    }
-
-    /*
-     * IMPORTANT:
-     * Set the initial hidden state BEFORE ScrollTrigger
-     * starts watching the sections.
-     */
-    gsap.set(".trust-desktop-bg, .trust-desktop-item", {
-      opacity: 0,
-      y: 25,
-    });
-
-    gsap.set(".trust-mobile-bg, .trust-mobile-item", {
-      opacity: 0,
-      y: 25,
-    });
-
-    /*
-     * Desktop / Tablet
-     */
-    if (desktopSection) {
-      const desktopTimeline = gsap.timeline({
+      /*
+       * Trust animation
+       */
+      const timeline = gsap.timeline({
         paused: true,
       });
 
-      desktopTimeline
-        .to(".trust-desktop-bg", {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "power3.out",
-        })
+      timeline
         .to(
-          ".trust-desktop-item",
+          [desktopBackground, mobileBackground],
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+          },
+        )
+        .to(
+          [desktopItems, mobileItems],
           {
             opacity: 1,
             y: 0,
@@ -95,56 +123,39 @@ export default function Trust() {
           "-=0.35",
         );
 
-      ScrollTrigger.create({
-        trigger: desktopSection,
+      /*
+       * Trigger only when Trust actually
+       * enters the viewport.
+       */
+      const trigger = ScrollTrigger.create({
+        trigger: trust,
         start: "top 80%",
         once: true,
         onEnter: () => {
-          desktopTimeline.play();
+          timeline.play();
         },
       });
-    }
 
-    /*
-     * Mobile
-     */
-    if (mobileSection) {
-      const mobileTimeline = gsap.timeline({
-        paused: true,
+      /*
+       * Recalculate positions after layout
+       * and Hero animations have initialized.
+       */
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
       });
 
-      mobileTimeline
-        .to(".trust-mobile-bg", {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "power3.out",
-        })
-        .to(
-          ".trust-mobile-item",
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.12,
-            ease: "power3.out",
-          },
-          "-=0.35",
-        );
-
-      ScrollTrigger.create({
-        trigger: mobileSection,
-        start: "top 80%",
-        once: true,
-        onEnter: () => {
-          mobileTimeline.play();
-        },
-      });
-    }
-  });
+      return () => {
+        trigger.kill();
+        timeline.kill();
+      };
+    },
+    {
+      scope: trustRef,
+    },
+  );
 
   return (
-    <>
+    <div ref={trustRef}>
       {/* Desktop & Tablet Trust Strip */}
       <section className="trust-desktop hidden w-full md:block">
         <div
@@ -257,6 +268,6 @@ export default function Trust() {
           })}
         </div>
       </section>
-    </>
+    </div>
   );
 }
